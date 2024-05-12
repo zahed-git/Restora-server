@@ -28,6 +28,9 @@ async function run() {
     await client.connect();
     const collectionOfUser = client.db('ResturaDB').collection('user')
 
+
+    // -==--------for user
+// ---singUp
     app.post('/user', async (req,res)=>{
       const newUser = req.body;
       console.log(newUser)
@@ -35,6 +38,37 @@ async function run() {
       console.log(newUser)
       res.send(result)
     })
+
+    // ---user get
+    app.get('/user', async (req, res) => {
+      const cursor = collectionOfUser.find();
+      const users = await cursor.toArray();
+      res.send(users);
+  })
+
+     // ------?----sign_in and update--------
+     app.patch('/user', async (req, res) => {
+      const user = req.body;
+      const filter = { email: user.email }
+      const updateDoc = {
+          $set: {
+              lastLoggedAt: user.lastLoggedAt
+          }
+      }
+      const result = await collectionOfUser.updateOne(filter, updateDoc);
+      res.send(result);
+  })
+
+  app.delete('/user/:id', async (req, res) => {
+    const id = req.params.id;
+    const query = { _id: new ObjectId(id) };
+    const result = await collectionOfUser.deleteOne(query);
+    res.send(result);
+})
+
+
+
+// -----------for products
 
 
     // Send a ping to confirm a successful connection
