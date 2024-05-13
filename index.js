@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 5000;
@@ -89,27 +89,27 @@ app.get('/foods', async (req, res) => {
 //   res.send(result)
 // })
 // // -----2------then put data for update
-// app.put('/foods/:_id', async (req, res) => {
-//   const id = req.params._id;
-//   const filter = { _id: new ObjectId(id) }
-//   const option = { upsert: true }
-//   const updateFoods = req.body;
-//   const Food = {
-//     $set: {
-//       image: updateFoods.image,
-//       tourists_spot_name: updateFoods.tourists_spot_name,
-//       country_Name: updateFoods.country_Name,
-//       Food: updateFoods.Food,
-//       description: updateFoods.description,
-//       averageCost: updateFoods.averageCost,
-//       seasonality: updateFoods.seasonality,
-//       travel_Time: updateFoods.travel_Time,
-//       total_Visitors_Per_Year: updateFoods.total_Visitors_Per_Year,
-//     }
-//   }
-//   const result = await collectionOfFoods.updateOne(filter, Food, option)
-//   res.send(result)
-// })
+app.put('/foods/:_id', async (req, res) => {
+  const id = req.params._id;
+  const filter = {_id: new ObjectId(id)}
+  const option = { upsert: true }
+  const updateFoods = req.body;
+  const Food = {
+    $set: {
+      food_name: updateFoods.food_name,
+      pickup_location:updateFoods.pickup_location,
+      quantity:updateFoods.quantity,
+      image:updateFoods.image,
+      price:updateFoods.price,
+      expired_datetime:updateFoods.expired_datetime,
+      additional_notes:updateFoods.additional_notes,
+      food_imag:updateFoods.food_imag,
+      donator_name:updateFoods.donator_name
+    }
+  }
+  const result = await collectionOfFoods.updateOne(filter, Food, option)
+  res.send(result)
+})
 // ---------------------------
 
 app.post('/foods', async (req, res) => {
