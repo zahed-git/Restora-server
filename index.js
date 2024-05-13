@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 app.use( cors (
   {
   origin:["http://localhost:5173"],
-  credentials:true,
+  credentials:true
 }
 ))
 app.use(express.json())
@@ -82,49 +82,49 @@ app.get('/foods', async (req, res) => {
 })
 // ---two-operation-for--update-operation
 // ---1---first get data by spacific Id
-app.get('/foods/:_id', async (req, res) => {
-  const id = req.params._id;
-  const query = { _id: new ObjectId(id) };
-  const result = await collectionOfFoods.findOne(query);
-  res.send(result)
-})
-// -----2------then put data for update
-app.put('/foods/:_id', async (req, res) => {
-  const id = req.params._id;
-  const filter = { _id: new ObjectId(id) }
-  const option = { upsert: true }
-  const updateFoods = req.body;
-  const Food = {
-    $set: {
-      image: updateFoods.image,
-      tourists_spot_name: updateFoods.tourists_spot_name,
-      country_Name: updateFoods.country_Name,
-      Food: updateFoods.Food,
-      description: updateFoods.description,
-      averageCost: updateFoods.averageCost,
-      seasonality: updateFoods.seasonality,
-      travel_Time: updateFoods.travel_Time,
-      total_Visitors_Per_Year: updateFoods.total_Visitors_Per_Year,
-    }
-  }
-  const result = await collectionOfFoods.updateOne(filter, Food, option)
-  res.send(result)
-})
+// app.get('/foods/:_id', async (req, res) => {
+//   const id = req.params._id;
+//   const query = { _id: new ObjectId(id) };
+//   const result = await collectionOfFoods.findOne(query);
+//   res.send(result)
+// })
+// // -----2------then put data for update
+// app.put('/foods/:_id', async (req, res) => {
+//   const id = req.params._id;
+//   const filter = { _id: new ObjectId(id) }
+//   const option = { upsert: true }
+//   const updateFoods = req.body;
+//   const Food = {
+//     $set: {
+//       image: updateFoods.image,
+//       tourists_spot_name: updateFoods.tourists_spot_name,
+//       country_Name: updateFoods.country_Name,
+//       Food: updateFoods.Food,
+//       description: updateFoods.description,
+//       averageCost: updateFoods.averageCost,
+//       seasonality: updateFoods.seasonality,
+//       travel_Time: updateFoods.travel_Time,
+//       total_Visitors_Per_Year: updateFoods.total_Visitors_Per_Year,
+//     }
+//   }
+//   const result = await collectionOfFoods.updateOne(filter, Food, option)
+//   res.send(result)
+// })
 // ---------------------------
 
 app.post('/foods', async (req, res) => {
-  const newPlace = req.body;
-  const result = await collectionOfLocation.insertOne(newPlace)
-  console.log(newPlace)
+  const newFood = req.body;
+  const result = await collectionOfFoods.insertOne(newFood)
+  console.log(newFood)
   console.log(`A document was inserted with the _id: ${result.insertedId}`)
   res.send(result)
 })
-app.delete('/foods/:_id', async (req, res) => {
-  const id = req.params._id;
-  const query = { _id: new ObjectId(id) };
-  const result = await collectionOfFoods.deleteOne(query);
-  res.send(result)
-})
+// app.delete('/foods/:_id', async (req, res) => {
+//   const id = req.params._id;
+//   const query = { _id: new ObjectId(id) };
+//   const result = await collectionOfFoods.deleteOne(query);
+//   res.send(result)
+// })
 
 
 
