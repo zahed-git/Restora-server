@@ -65,12 +65,7 @@ async function run() {
       res.send(result);
   })
 
-  app.delete('/user/:id', async (req, res) => {
-    const id = req.params.id;
-    const query = { _id: new ObjectId(id) };
-    const result = await collectionOfUser.deleteOne(query);
-    res.send(result);
-})
+
 
 
 
@@ -119,12 +114,12 @@ app.post('/foods', async (req, res) => {
   console.log(`A document was inserted with the _id: ${result.insertedId}`)
   res.send(result)
 })
-// app.delete('/foods/:_id', async (req, res) => {
-//   const id = req.params._id;
-//   const query = { _id: new ObjectId(id) };
-//   const result = await collectionOfFoods.deleteOne(query);
-//   res.send(result)
-// })
+app.delete('/foods/:_id', async (req, res) => {
+  const id = req.params._id;
+  const query = { _id: new ObjectId(id) };
+  const result = await collectionOfFoods.deleteOne(query);
+  res.send(result)
+})
 
 
 
