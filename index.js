@@ -82,12 +82,12 @@ app.get('/foods', async (req, res) => {
 })
 // ---two-operation-for--update-operation
 // ---1---first get data by spacific Id
-// app.get('/foods/:_id', async (req, res) => {
-//   const id = req.params._id;
-//   const query = { _id: new ObjectId(id) };
-//   const result = await collectionOfFoods.findOne(query);
-//   res.send(result)
-// })
+app.get('/foods/:_id', async (req, res) => {
+  const id = req.params._id;
+  const query = { _id: new ObjectId(id) };
+  const result = await collectionOfFoods.findOne(query);
+  res.send(result)
+})
 // // -----2------then put data for update
 app.put('/foods/:_id', async (req, res) => {
   const id = req.params._id;
